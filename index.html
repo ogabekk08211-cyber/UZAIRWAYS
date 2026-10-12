@@ -1,1 +1,479 @@
 
+```html
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UzAirways — Aviaqatnovlar</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f3f7fc;
+  color: #17345c;
+}
+
+header {
+  background: white;
+  padding: 20px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px #0001;
+}
+
+.logo {
+  color: #087cf0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+nav a {
+  color: #17345c;
+  text-decoration: none;
+  margin-left: 18px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #0753a3, #138de0);
+  color: white;
+  padding: 65px 7% 95px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.booking {
+  background: white;
+  color: #17345c;
+  margin: -55px auto 40px;
+  width: 86%;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px #164b801a;
+  position: relative;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  border: 1px solid #d4dfed;
+  border-radius: 8px;
+  background: white;
+  font-size: 15px;
+}
+
+button {
+  background: #087cf0;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005dc0;
+}
+
+.search-button {
+  grid-column: 1 / -1;
+}
+
+section {
+  padding: 10px 7% 40px;
+}
+
+section h2 {
+  margin-bottom: 12px;
+}
+
+.routes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px #0000000c;
+  border-top: 4px solid #087cf0;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+.price {
+  color: #087cf0;
+  font-size: 19px;
+  font-weight: bold;
+  margin-top: 14px;
+}
+
+#results {
+  margin-top: 25px;
+}
+
+.result {
+  background: white;
+  padding: 20px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border-left: 4px solid #087cf0;
+  line-height: 1.8;
+}
+
+.ai {
+  background: #e4f1ff;
+  padding: 25px;
+  border-radius: 14px;
+  margin-top: 25px;
+}
+
+footer {
+  background: #102b50;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  line-height: 2;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav a {
+    margin: 5px;
+    font-size: 13px;
+  }
+
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  .search-button {
+    grid-column: auto;
+  }
+
+  .booking {
+    width: 92%;
+    padding: 17px;
+  }
+
+  section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">✈ UzAirways</div>
+  <nav>
+    <a href="#home">Bosh sahifa</a>
+    <a href="#routes">Yo‘nalishlar</a>
+    <a href="#ai">AI yordamchi</a>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <h1>Dunyo sizni kutmoqda!</h1>
+  <p>Aviaqatnovlarni qidiring, yo‘nalishingizni tanlang<br>
+  va sayohatingizni rejalashtiring.</p>
+</div>
+
+<div class="booking">
+  <h2>✈ Aviachipta qidirish</h2>
+  <br>
+
+  <form id="flightForm">
+    <label>
+      Qayerdan?
+      <select id="from">
+        <optgroup label="O‘zbekiston">
+          <option value="Toshkent">Toshkent</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Urganch">Urganch</option>
+        </optgroup>
+        <optgroup label="Osiyo va Yaqin Sharq">
+          <option value="Istanbul">Istanbul</option>
+          <option value="Dubai">Dubai</option>
+          <option value="Doha">Doha</option>
+          <option value="Riyadh">Riyadh</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Bangkok">Bangkok</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Tokyo">Tokyo</option>
+          <option value="Seoul">Seoul</option>
+          <option value="Beijing">Beijing</option>
+          <option value="Hong Kong">Hong Kong</option>
+        </optgroup>
+        <optgroup label="Yevropa">
+          <option value="Moskva">Moskva</option>
+          <option value="London">London</option>
+          <option value="Paris">Paris</option>
+          <option value="Berlin">Berlin</option>
+          <option value="Rome">Rome</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Amsterdam">Amsterdam</option>
+        </optgroup>
+        <optgroup label="Amerika">
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Toronto">Toronto</option>
+          <option value="Sao Paulo">Sao Paulo</option>
+        </optgroup>
+        <optgroup label="Afrika va Okeaniya">
+          <option value="Cairo">Cairo</option>
+          <option value="Johannesburg">Johannesburg</option>
+          <option value="Sydney">Sydney</option>
+          <option value="Auckland">Auckland</option>
+        </optgroup>
+      </select>
+    </label>
+
+    <label>
+      Qayerga?
+      <select id="to">
+        <optgroup label="O‘zbekiston">
+          <option value="Toshkent">Toshkent</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Urganch">Urganch</option>
+        </optgroup>
+        <optgroup label="Osiyo va Yaqin Sharq">
+          <option value="Istanbul">Istanbul</option>
+          <option value="Dubai">Dubai</option>
+          <option value="Doha">Doha</option>
+          <option value="Riyadh">Riyadh</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Bangkok">Bangkok</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Tokyo">Tokyo</option>
+          <option value="Seoul">Seoul</option>
+          <option value="Beijing">Beijing</option>
+          <option value="Hong Kong">Hong Kong</option>
+        </optgroup>
+        <optgroup label="Yevropa">
+          <option value="Moskva">Moskva</option>
+          <option value="London">London</option>
+          <option value="Paris">Paris</option>
+          <option value="Berlin">Berlin</option>
+          <option value="Rome">Rome</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Amsterdam">Amsterdam</option>
+        </optgroup>
+        <optgroup label="Amerika">
+          <option value="New York">New York</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Toronto">Toronto</option>
+          <option value="Sao Paulo">Sao Paulo</option>
+        </optgroup>
+        <optgroup label="Afrika va Okeaniya">
+          <option value="Cairo">Cairo</option>
+          <option value="Johannesburg">Johannesburg</option>
+          <option value="Sydney">Sydney</option>
+          <option value="Auckland">Auckland</option>
+        </optgroup>
+      </select>
+    </label>
+
+    <label>
+      Uchish sanasi
+      <input type="date" id="date" required>
+    </label>
+
+    <label>
+      Yo‘lovchilar soni
+      <select id="passengers">
+        <option value="1">1 yo‘lovchi</option>
+        <option value="2">2 yo‘lovchi</option>
+        <option value="3">3 yo‘lovchi</option>
+        <option value="4">4 yo‘lovchi</option>
+        <option value="5">5 yo‘lovchi</option>
+      </select>
+    </label>
+
+    <button class="search-button" type="submit">
+      🔍 Reyslarni qidirish
+    </button>
+  </form>
+
+  <div id="results"></div>
+</div>
+
+<section id="routes">
+  <h2>🌍 Mashhur yo‘nalishlar</h2>
+  <p>Sayohat uchun mashhur manzillar</p>
+
+  <div class="routes">
+    <div class="card">
+      <h3>✈ Toshkent → Istanbul</h3>
+      <p>Turkiyaning tarixiy shahri</p>
+      <div class="price">3 200 000 so‘m</div>
+    </div>
+
+    <div class="card">
+      <h3>✈ Toshkent → Dubai</h3>
+      <p>Zamonaviy osmono‘par binolar</p>
+      <div class="price">2 800 000 so‘m</div>
+    </div>
+
+    <div class="card">
+      <h3>✈ Toshkent → Moskva</h3>
+      <p>Rossiyaning poytaxti</p>
+      <div class="price">2 400 000 so‘m</div>
+    </div>
+
+    <div class="card">
+      <h3>✈ Toshkent → Urganch</h3>
+      <p>Xorazmga qulay sayohat</p>
+      <div class="price">600 000 so‘m</div>
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="ai">
+    <h2>🤖 Sun’iy intellekt yordamchisi</h2>
+    <p id="aiText">
+      Sayohat rejangiz bo‘yicha maslahat oling.
+    </p>
+    <br>
+    <button onclick="getAdvice()">Menga maslahat ber</button>
+  </div>
+</section>
+
+<footer>
+  <h2>✈ UzAirways</h2>
+  <p>Sizning sayohatingiz biz bilan boshlanadi.</p>
+  <p>O‘quv loyihasi | HTML, CSS va JavaScript</p>
+  <p>© 2026 UzAirways</p>
+</footer>
+
+<script>
+// Sana maydoniga bugungi sanani belgilash
+const dateInput = document.getElementById("date");
+const today = new Date();
+const localToday = new Date(
+  today.getTime() - today.getTimezoneOffset() * 60000
+).toISOString().split("T")[0];
+
+dateInput.min = localToday;
+dateInput.value = localToday;
+
+// Namunaviy reyslar
+const flights = [
+  {from:"Toshkent",to:"Istanbul",time:"08:30",arrival:"12:00",price:3200000},
+  {from:"Toshkent",to:"Dubai",time:"10:15",arrival:"13:00",price:2800000},
+  {from:"Toshkent",to:"Moskva",time:"14:00",arrival:"17:30",price:2400000},
+  {from:"Toshkent",to:"Urganch",time:"09:00",arrival:"10:30",price:600000},
+  {from:"Urganch",to:"Toshkent",time:"16:00",arrival:"17:30",price:650000},
+  {from:"Toshkent",to:"Samarqand",time:"11:00",arrival:"12:00",price:500000},
+  {from:"Toshkent",to:"Buxoro",time:"13:00",arrival:"14:10",price:550000}
+];
+
+document.getElementById("flightForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const date = dateInput.value;
+  const passengers = Number(document.getElementById("passengers").value);
+  const results = document.getElementById("results");
+
+  if (from === to) {
+    results.innerHTML = "<p>⚠️ Jo‘nash va manzil shaharlari turlicha bo‘lishi kerak.</p>";
+    return;
+  }
+
+  const matches = flights.filter(f => f.from === from && f.to === to);
+
+  if (matches.length === 0) {
+    results.innerHTML = "<p>Bu yo‘nalish uchun namunaviy reys topilmadi.</p>";
+    return;
+  }
+
+  results.innerHTML = "<h3>Qidiruv natijalari</h3>" +
+    "<p>Sana: " + date + " | Yo‘lovchilar: " + passengers + "</p>";
+
+  matches.forEach(f => {
+    results.innerHTML += `
+      <div class="result">
+        <h3>✈ ${f.from} → ${f.to}</h3>
+        <p>Uchish: ${f.time} | Qo‘nish: ${f.arrival}</p>
+        <p>Bir yo‘lovchi uchun: ${f.price.toLocaleString("uz-UZ")} so‘m</p>
+        <p>Jami: ${(f.price * passengers).toLocaleString("uz-UZ")} so‘m</p>
+        <small>Namuna ma’lumot — haqiqiy reys emas.</small>
+      </div>`;
+  });
+});
+
+// Qoidalar asosida ishlaydigan oddiy maslahat yordamchisi
+function getAdvice() {
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const date = dateInput.value;
+
+  let advice = "";
+
+  if (from === to) {
+    advice = "Avval jo‘nash va borish shaharlarini turlicha tanlang.";
+  } else {
+    advice = `${from} dan ${to} ga sayohat rejalashtiryapsiz. ` +
+      `${date} sanasi uchun reyslarni tekshiring. ` +
+      "Chipta olishdan oldin bagaj, qaytarish shartlari va uchish vaqtini solishtiring.";
+  }
+
+  document.getElementById("aiText").textContent = advice;
+}
+</script>
+
+</body>
+</html>
+```
